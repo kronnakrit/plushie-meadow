@@ -1,0 +1,341 @@
+<title>Plushie Meadow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600;700&family=Andika:wght@400;700&family=Noto+Sans+Thai+Looped:wght@500;700&display=swap">
+<style>
+/* Layout: a soft design bible. Sticky stitched chip nav, one 1100px column, scenes sit on felt "stages". */
+:root {
+  --bg: #F1F8EC; --surface: #FFFDF8; --surface2: #EAF0E2; --ink: #463D4E; --muted: #6F6679; --line: #DCE3D2;
+  --accent: #E0306E; --accent-soft: #FBE3EA; --sage: #2E8B3E; --sage-soft: #E2EEDA; --lav: #6A4FE0; --lav-soft: #ECE6F8; --butter-soft: #FBF0D2;
+  --stage: #FFF9F1; --stage-line: #EADFD3; --seam: #C9BFD6;
+  --f-display: 'Itim', ui-rounded, 'Hiragino Maru Gothic ProN', system-ui, sans-serif;
+  --f-body: 'Mali', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-kid: 'Andika', 'Mali', ui-rounded, system-ui, sans-serif;
+  --f-thai: 'Noto Sans Thai Looped', 'Mali', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1A201C; --surface: #222A25; --surface2: #29322C; --ink: #EEF0E8; --muted: #B3B9AA; --line: #36423A;
+  --accent: #F49AB5; --accent-soft: #3A2530; --sage: #9CCB95; --sage-soft: #22352A; --lav: #BBA9F2; --lav-soft: #2C2840; --butter-soft: #3A3322;
+  --stage: #F7EFE6; --stage-line: #3E4A42; --seam: #4E5A52; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1A201C; --surface: #222A25; --surface2: #29322C; --ink: #EEF0E8; --muted: #B3B9AA; --line: #36423A;
+  --accent: #F49AB5; --accent-soft: #3A2530; --sage: #9CCB95; --sage-soft: #22352A; --lav: #BBA9F2; --lav-soft: #2C2840; --butter-soft: #3A3322;
+  --stage: #F7EFE6; --stage-line: #3E4A42; --seam: #4E5A52; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.65; padding-inline: 16px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding-block: 8px 80px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; text-wrap: balance; line-height: 1.15; margin: 0 }
+h2 { font-size: clamp(1.7rem, 3.8vw, 2.4rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0; max-width: 66ch }
+a { color: var(--accent) }
+.eyebrow { font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--accent) }
+.muted { color: var(--muted) }
+.stack { display: flex; flex-direction: column; gap: 14px }
+section { padding-block: 60px 8px; display: flex; flex-direction: column; gap: 24px; scroll-margin-top: 64px }
+section > header { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 2px dashed var(--seam) }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px }
+
+nav.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(8px); margin-inline: -16px; padding: 10px 16px; }
+nav.top .row { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none }
+nav.top a { flex: none; text-decoration: none; color: var(--ink); font-weight: 600; font-size: .9rem; padding: 6px 14px; border-radius: 999px; background: var(--surface); border: 1.5px dashed var(--seam) }
+nav.top a:hover { background: var(--accent-soft) }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: center; padding-block: 28px 8px }
+.hero h1 { font-size: clamp(3rem, 8vw, 5.2rem); letter-spacing: -.01em; color: var(--ink) }
+.hero h1 span { color: var(--accent) }
+.hero .lede { font-size: 1.12rem }
+.hero .phones { display: grid; gap: 14px }
+.hero .phones svg:nth-child(2) { width: 82%; justify-self: end; margin-top: -40px }
+.facts { display: flex; flex-wrap: wrap; gap: 8px }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: .84rem; font-weight: 600; background: var(--surface); border: 1.5px solid var(--line) }
+.chip.free { background: var(--sage-soft); border-color: transparent; color: var(--sage) }
+.chip.paid { background: var(--lav-soft); border-color: transparent; color: var(--lav) }
+.chip.tier { background: var(--butter-soft); border-color: transparent }
+
+svg.phone, svg.thumb { width: 100%; height: auto; display: block }
+svg.thumb { border-radius: 12px }
+.stage { background: var(--stage); border-radius: 22px; border: 2px dashed var(--stage-line); padding: 12px }
+
+/* cast */
+.cast { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px }
+.cast figure { margin: 0; background: var(--surface); border-radius: 20px; padding: 10px 8px 12px; text-align: center; border: 1.5px solid var(--line) }
+.cast svg { width: 100%; height: auto; display: block; background: var(--stage); border-radius: 14px }
+.cast b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.1rem; margin-top: 6px }
+.cast span { font-size: .8rem; color: var(--muted); line-height: 1.3; display: block }
+
+/* promise */
+.promise { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px }
+.promise div { background: var(--surface); border-radius: 20px; padding: 18px; border: 1.5px solid var(--line); display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.promise b { font-family: var(--f-display); font-weight: 400; font-size: 1.2rem }
+.promise p { font-size: .95rem }
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px }
+.tiers div { border-radius: 20px; padding: 16px 18px; background: var(--butter-soft); display: flex; flex-direction: column; gap: 4px }
+.tiers b { font-family: var(--f-display); font-weight: 400; font-size: 1.35rem }
+
+/* meadow */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px }
+.duo figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0 }
+figcaption { font-size: .9rem; color: var(--muted) }
+figcaption b { color: var(--ink) }
+ol.flow { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: f }
+ol.flow li { counter-increment: f; background: var(--surface); border-radius: 18px; padding: 14px; border: 1.5px solid var(--line); font-size: .92rem; min-width: 0 }
+ol.flow li::before { content: counter(f); display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 700; margin-bottom: 6px }
+ol.flow b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.08rem }
+
+/* games */
+.game { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 26px; align-items: start; padding: 22px; background: var(--surface); border-radius: 26px; border: 1.5px solid var(--line) }
+.game .meta { display: flex; flex-wrap: wrap; gap: 6px }
+.game h3 { font-size: 1.7rem }
+.game .say { font-family: var(--f-display); font-size: 1.05rem; color: var(--accent); padding: 10px 14px; background: var(--accent-soft); border-radius: 16px 16px 16px 4px; align-self: flex-start }
+.tierlist { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none }
+.tierlist li { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 10px; font-size: .92rem; align-items: baseline }
+.tierlist li span:first-child { font-weight: 700; color: var(--sage) }
+.games15 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px }
+.g15 { background: var(--surface); border-radius: 22px; padding: 12px; border: 1.5px solid var(--line); display: flex; flex-direction: column; gap: 8px; min-width: 0 }
+.g15 h3 { font-size: 1.2rem }
+.g15 p { font-size: .9rem }
+.g15 details { font-size: .86rem }
+.g15 summary { cursor: pointer; font-weight: 600; color: var(--lav) }
+.g15 .tierlist { margin-top: 6px }
+.g15 .tierlist li { grid-template-columns: 56px minmax(0, 1fr); font-size: .84rem }
+
+/* demo */
+.demo { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; align-items: center; padding: 20px; border-radius: 26px; background: var(--sage-soft) }
+.demo svg { width: 100%; height: auto; display: block; border-radius: 16px; touch-action: manipulation; user-select: none }
+.demo .ctl { display: flex; flex-wrap: wrap; gap: 8px }
+.demo button { font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer }
+.demo button[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: transparent }
+.demo [data-hit] { cursor: pointer }
+
+/* matrix */
+.tablewrap { overflow-x: auto; border-radius: 18px; border: 1.5px solid var(--line); background: var(--surface) }
+table { border-collapse: collapse; width: 100%; font-size: .88rem; min-width: 820px }
+th, td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--line) }
+th { font-weight: 600; font-size: .78rem; color: var(--muted); vertical-align: bottom }
+td:first-child, th:first-child { text-align: left; white-space: nowrap }
+td.area { font-size: .78rem; color: var(--muted); text-align: left; white-space: nowrap }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50% }
+.dot.p { background: var(--accent) }
+.dot.s { border: 2px solid var(--lav) }
+tr.free td:first-child b::after { content: ' free'; font-size: .7rem; color: var(--sage); font-weight: 700; margin-left: 4px }
+
+/* feedback */
+.moods { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px }
+.moods figure { margin: 0; text-align: center; font-size: .84rem }
+.moods svg { width: 100%; height: auto; background: var(--stage); border-radius: 16px; display: block }
+.moods b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.05rem; margin-top: 4px }
+.paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.paths > div { border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 8px }
+.paths .yes { background: var(--sage-soft) }
+.paths .notyet { background: var(--lav-soft) }
+.paths h3 { font-size: 1.25rem }
+.paths ol { margin: 0; padding-left: 20px; font-size: .94rem; display: grid; gap: 4px }
+.rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.rules > div { background: var(--surface); border: 1.5px solid var(--line); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0 }
+.rules ul { margin: 0; padding-left: 20px; font-size: .94rem; display: grid; gap: 4px }
+
+/* grown-ups */
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px }
+.trio figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0 }
+
+/* assets */
+.sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px }
+.tile { background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.tile .art { background: var(--stage); border-radius: 12px; aspect-ratio: 1; display: grid; place-items: center; max-width: 100% }
+.tile svg { width: 100%; height: 100% }
+.tile b { font-size: .84rem; line-height: 1.25 }
+.tile span { font-size: .74rem; color: var(--muted); line-height: 1.3 }
+.castsheet { display: grid; grid-template-columns: 120px repeat(6, minmax(0, 1fr)); gap: 8px; align-items: center }
+.castsheet .h { font-size: .78rem; color: var(--muted); text-align: center; font-weight: 600 }
+.castsheet .n { font-family: var(--f-display); font-size: 1.05rem }
+.castsheet svg { width: 100%; height: auto; display: block; background: var(--stage); border-radius: 12px }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px }
+.sw { border-radius: 16px; overflow: hidden; border: 1.5px solid var(--line); background: var(--surface) }
+.sw i { display: block; height: 54px }
+.sw div { padding: 6px 10px; font-size: .78rem; line-height: 1.3 }
+.sw code { font-size: .74rem; color: var(--muted) }
+.type { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.type > div { background: var(--surface); border: 1.5px solid var(--line); border-radius: 20px; padding: 18px; min-width: 0 }
+.type .big { font-size: 2.6rem; line-height: 1.2 }
+.sub { font-family: var(--f-display); font-weight: 400; font-size: 1.25rem; margin-top: 8px }
+.sounds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px }
+.sounds div { background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px; font-size: .9rem; min-width: 0 }
+.sounds b { display: block }
+
+/* tech */
+.tech { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px }
+.tech > div { background: var(--surface); border: 1.5px solid var(--line); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0 }
+.tech ul { margin: 0; padding-left: 20px; display: grid; gap: 5px; font-size: .94rem }
+.verdict { background: var(--accent-soft); border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 8px }
+.verdict b { font-family: var(--f-display); font-weight: 400; font-size: 1.4rem }
+dl.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; margin: 0; font-size: .92rem }
+dl.kv dt { font-weight: 700 }
+dl.kv dd { margin: 0 }
+
+@media (max-width: 900px) {
+  .hero, .game, .demo, .tech { grid-template-columns: minmax(0, 1fr) }
+  .cast { grid-template-columns: repeat(3, minmax(0, 1fr)) }
+  .promise, .games15, .trio, .sounds { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  ol.flow { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .moods { grid-template-columns: repeat(3, minmax(0, 1fr)) }
+  .castsheet { grid-template-columns: 80px repeat(6, minmax(0, 1fr)) }
+}
+@media (max-width: 560px) {
+  .promise, .games15, .trio, .sounds, .duo, .paths, .rules, .type, .tiers { grid-template-columns: minmax(0, 1fr) }
+  .castsheet { grid-template-columns: 56px repeat(6, minmax(0, 1fr)); gap: 4px }
+  .castsheet .n { font-size: .8rem }
+  .game { padding: 14px }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bob { animation: bob 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100% }
+  @keyframes bob { 50% { transform: translateY(-3px) } }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="defs"></defs></svg>
+
+<nav class="top" aria-label="Sections"><div class="row">
+  <a href="#meadow">The meadow</a><a href="#promise">Kid-safe promise</a><a href="#free">Free five</a><a href="#full">Full meadow</a><a href="#skills">Skills map</a><a href="#feedback">Feedback</a><a href="#grownups">Grown-ups</a><a href="#assets">Assets</a><a href="#tech">Tech</a>
+</div></nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="stack">
+      <span class="eyebrow">Game design v1 · ages 3 to 6</span>
+      <h1>Plushie <span>Meadow</span></h1>
+      <p class="lede">A bright, felt-stitched meadow where six plush friends teach counting, letters, shapes, colors, memory and little-hand skills through 20 short mini games. Five are free. One grown-up purchase opens the other fifteen.</p>
+      <div class="facts"><span class="chip free">5 free games</span><span class="chip paid">15 in the full meadow</span><span class="chip tier">3 tiers per game</span><span class="chip">No reading needed</span><span class="chip">No ads</span><span class="chip">Works offline</span><span class="chip">iOS + Android</span></div>
+    </div>
+    <div class="phones" id="heroPhones"></div>
+  </div>
+
+  <section id="meadow">
+    <header><span class="eyebrow">World</span><h2>Six plush friends, six cozy homes</h2>
+      <p>Everything looks like it was sewn from bright, candy-colored felt: rounded shapes, stitched seams, a soft grain, and gentle shadows that lift pieces off the ground. The colors are bold enough to grab a child’s eye from across the room, while the shapes and textures keep it feeling soft and cuddly. Each friend hosts one home in the meadow and one kind of skill, so children learn where to go by who lives there, without reading a single label.</p></header>
+    <div class="cast" id="cast"></div>
+    <div class="duo" id="meadowShots"></div>
+    <h3>How a visit goes</h3>
+    <ol class="flow">
+      <li><b>Hello</b>Mallow waves hello. The music is soft and the meadow sways a little.</li>
+      <li><b>Pick a home</b>Tap a house. The host pops out and the game pillows appear on a shelf.</li>
+      <li><b>Play 5 petals</b>Each game is five quick tasks, about two to three minutes. Petals at the top fill as they go.</li>
+      <li><b>Get a sticker</b>Every finished game gives a felt sticker for the Sticker Quilt. No coins, no streaks, no shop.</li>
+      <li><b>Wind down</b>When the grown-up’s time limit is close, the meadow turns to dusk after the current game and Mallow yawns goodnight.</li>
+    </ol>
+  </section>
+
+  <section id="promise">
+    <header><span class="eyebrow">Kid-safe promise</span><h2>Made for small hands and big feelings</h2>
+      <p>These rules apply to every game, free or paid, and they are the checklist for any new game we add later.</p></header>
+    <div class="promise">
+      <div><b>Nothing to read</b><p>Every instruction is spoken. A felt hand shows the move first, then lets the child try. The only words on screen live behind the grown-up gate.</p></div>
+      <div><b>No way to lose</b><p>No timers, lives, scores or red crosses. A wrong try gently boings back, and help arrives on its own after two misses.</p></div>
+      <div><b>Big, forgiving touch</b><p>Tap targets are at least 64 pt and most are 96 pt. Dragged pieces snap in when they land within half a piece of the spot. Extra fingers and palm touches are ignored.</p></div>
+      <div><b>Bright, never frantic</b><p>Vivid, saturated colors pull attention to what matters, but motion is slow and eased, music is quiet, and nothing flashes. Nothing pops up uninvited, and there are no countdowns or alarms.</p></div>
+      <div><b>Grows with the child</b><p>Each game has three tiers that move up or down on their own, so a 3-year-old and a 6-year-old can share one device.</p></div>
+      <div><b>Nothing for strangers</b><p>No ads, accounts, chat or tracking SDKs. Progress stays on the device. Purchases and settings sit behind a grown-up gate.</p></div>
+    </div>
+    <div class="tiers" id="tiers"></div>
+  </section>
+
+  <section id="free">
+    <header><span class="eyebrow">Free to play</span><h2>The free five</h2>
+      <p>One free game in five of the six homes, chosen to cover the core skills parents look for first: counting, shapes and colors, letters, memory, and pencil-ready hands. All three tiers are free, so the free app is a complete product on its own.</p></header>
+    <div class="stack" id="freeGames" style="gap:18px"></div>
+  </section>
+
+  <section id="full">
+    <header><span class="eyebrow">Full meadow · one purchase</span><h2>Fifteen more games</h2>
+      <p>In the meadow these games sleep under a little plaid blanket. A child who taps one sees a ten-second peek of it, then Mallow says “Let’s ask a grown-up!” and shows the key button. Children never see a price or a buy button.</p></header>
+    <div class="games15" id="paidGames"></div>
+  </section>
+
+  <section id="skills">
+    <header><span class="eyebrow">Skills map</span><h2>What each game teaches</h2>
+      <p>A filled dot is the main skill, and a ring is a skill it also practises. Every skill except feelings and everyday life is covered by at least one free game.</p></header>
+    <div class="tablewrap"><table id="matrix"></table></div>
+  </section>
+
+  <section id="feedback">
+    <header><span class="eyebrow">Feedback</span><h2>Always warm, never wrong</h2>
+      <p>The hosts react with five moods and one sleepy face. Getting it right is a small party; not yet is a shrug and a second chance.</p></header>
+    <div class="moods" id="moods"></div>
+    <div class="paths">
+      <div class="yes"><h3>Got it</h3><ol><li>The piece snaps in with a soft “pomf” and a little chime that rises in pitch through the five tasks.</li><li>The host cheers with the joy face and a short voice line.</li><li>A petal fills at the top. After five petals: sticker.</li></ol></div>
+      <div class="notyet"><h3>Not yet</h3><ol><li>The piece wobbles and floats back home. The host tilts their head: “Hmm, let’s try again.”</li><li>Second miss: the right answer glows gently.</li><li>Third miss: the felt hand shows it, and the child finishes the move, so every task still ends with the child succeeding.</li></ol></div>
+    </div>
+    <div class="rules">
+      <div><h3>Tiers move by themselves</h3><ul><li>Step up after two games in a row with at least 4 of 5 tasks right on the first try.</li><li>Step down after a game with 2 or fewer first-try answers.</li><li>Never more than one step per visit, and never in the middle of a game.</li><li>A grown-up can pin a tier in the Grown-ups corner.</li></ul></div>
+      <div><h3>Voice and sound</h3><ul><li>One warm narrator voice per language, recorded, not text-to-speech. English and Thai at launch.</li><li>Every prompt repeats after 6 seconds of no touch, then the felt hand shows the move after 12 seconds.</li><li>A tap on the host repeats the question at any time.</li><li>Music sits under the voice and ducks while anyone is talking.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="grownups">
+    <header><span class="eyebrow">Grown-ups</span><h2>The gate, the meadow key, the corner</h2>
+      <p>The small key button at the top right of the meadow is the only way into anything a child shouldn’t reach: the purchase, settings, progress, and any link out of the app.</p></header>
+    <div class="trio" id="grownShots"></div>
+    <div class="rules">
+      <div><h3>Grown-up gate</h3><ul><li>Press and hold the key for 2 seconds, then type three numbers written as words (“seven · two · five”). Reading words and holding still stops most 3 to 6 year olds.</li><li>The numbers change every time. Three wrong tries close the gate for a minute.</li><li>The gate comes before the paywall, settings, restore purchase, and the support email.</li></ul></div>
+      <div><h3>The purchase</h3><ul><li>One non-consumable in-app purchase, suggested $4.99 (฿179), opens all 15 games forever. No subscription.</li><li>Family Sharing on, and Restore purchase on the same screen.</li><li>Every future game we add joins the full meadow at no extra cost, which keeps the promise simple.</li></ul></div>
+      <div><h3>Grown-ups corner</h3><ul><li>Progress by skill with the current tier, and play time per day.</li><li>Daily time limit (off, 10, 20, 30 or 45 minutes) that triggers the wind-down.</li><li>Voice language, music volume, pinned tiers, and the child’s name for tracing in Wool Letters.</li></ul></div>
+      <div><h3>Store rules this meets</h3><ul><li>Apple Kids Category: no third-party ads or analytics, parental gate before purchases and links out.</li><li>Google Play Families policy and Teacher Approved guidelines.</li><li>COPPA and GDPR-K: no personal data leaves the device; the child’s name for tracing stays on it.</li></ul></div>
+    </div>
+  </section>
+
+  <section id="assets">
+    <header><span class="eyebrow">Assets</span><h2>Everything on screen</h2>
+      <p>All art is drawn as vectors with the same felt treatment, so it scales cleanly from a small phone to a 13-inch tablet. Each piece below is the actual drawing used in the mockups.</p></header>
+    <h3 class="sub">The cast and their moods</h3>
+    <div class="castsheet" id="castSheet"></div>
+    <h3 class="sub">Props and game pieces</h3>
+    <div class="sheet" id="props"></div>
+    <h3 class="sub">Interface kit</h3>
+    <div class="sheet" id="ui"></div>
+    <h3 class="sub">Game pillows (meadow icons)</h3>
+    <div class="sheet" id="pillows"></div>
+    <h3 class="sub">Bright felt palette</h3>
+    <div class="swatches" id="swatches"></div>
+    <h3 class="sub">Letters and numbers children learn</h3>
+    <div class="type">
+      <div class="stack"><span class="eyebrow">Latin · Andika</span><div class="big" style="font-family:var(--f-kid)">Aa Bb Gg Qq 1 2 3 4 7 9</div><p class="muted">Andika was made for early readers: the single-story a and g look like the ones children are taught to write, and I, l and 1 are easy to tell apart.</p></div>
+      <div class="stack"><span class="eyebrow">Thai · Noto Sans Thai Looped</span><div class="big" style="font-family:var(--f-thai)">ก ข ค ง จ ฉ ๑ ๒ ๓</div><p class="muted">Thai children learn the looped style first, so the Thai voice pack uses looped letters for Letter Lanterns, First Sound Basket and Wool Letters (ก ไก่, ข ไข่ and so on).</p></div>
+    </div>
+    <h3 class="sub">Sound list</h3>
+    <div class="sounds">
+      <div><b>Voice lines</b>About 1,400 short clips per language: prompts, counting 1 to 20, letter names and sounds, cheers, gentle retries, and host chatter.</div>
+      <div><b>Touch sounds</b>Felt “pomf” on drop, soft pop for bubbles and pillows, wooden tok for buttons, a rising chime ladder for the five petals.</div>
+      <div><b>Music</b>One quiet loop per home (music box, ukulele, kalimba, soft marimba), plus a lullaby for wind-down. No vocals under speech.</div>
+    </div>
+  </section>
+
+  <section id="tech">
+    <header><span class="eyebrow">Tech</span><h2>Built for old tablets and tiny fingers</h2></header>
+    <div class="verdict"><b>Recommendation: 2D with PixiJS inside Capacitor, not Three.js</b>
+      <p>Mochi March needs a real 3D camera because its whole game is a road moving toward you. Every game here is flat drag, tap and trace on one surface, where 2D gives exact hit areas and smooth tracing, and the depth children feel comes from layered felt pieces, soft shadows and a gentle parallax on the meadow. It keeps the same Capacitor shell, build pipeline and purchase plugin as Mochi March, so the two apps can share code.</p></div>
+    <div class="tech">
+      <div><h3>Stack</h3><dl class="kv">
+        <dt>Renderer</dt><dd>PixiJS 8 (WebGL, falls back to canvas)</dd>
+        <dt>App shell</dt><dd>Capacitor for iOS and Android, TypeScript, Vite</dd>
+        <dt>Art</dt><dd>These SVGs exported to texture atlases at 2x and 3x, felt grain baked in</dd>
+        <dt>Audio</dt><dd>Howler.js, AAC voice clips, one pack per language</dd>
+        <dt>Purchase</dt><dd>One non-consumable through StoreKit 2 and Play Billing via a Capacitor purchase plugin</dd>
+        <dt>Saves</dt><dd>Local only (Capacitor Preferences), optional iCloud or Google backup of the save file</dd>
+      </dl></div>
+      <div><h3>Budget and checks</h3><ul>
+        <li>60 fps on a 2018 iPad and a 2 GB Android tablet; 30 fps floor on anything older.</li>
+        <li>Cold start under 3 seconds to the meadow; each game loads in under 1 second.</li>
+        <li>Download under 150 MB with both voice packs; everything works in airplane mode.</li>
+        <li>Each game is a small module with one shared engine for drag, snap, trace and feedback, so new games are mostly art and data.</li>
+        <li>Testing: playtests with 3, 4, 5 and 6 year olds on every tier before launch, watching for misread prompts and missed taps.</li>
+      </ul></div>
+    </div>
+  </section>
+</div>
+
+<script>/*ART*/</script>
+<script>/*SCENES*/</script>
+<script>/*GAMES*/</script>
+<script>/*APP*/</script>
