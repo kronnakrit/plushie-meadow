@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#7CCBFF">
+  <title>Plushie Meadow</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #7CCBFF; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+    #app { position: fixed; inset: 0; }
+    #loading { position: fixed; inset: 0; display: grid; place-items: center; }
+    #loading div { width: 28px; height: 28px; border-radius: 50%; background: #FF5C8F; animation: hop 0.9s ease-in-out infinite; }
+    @keyframes hop { 50% { transform: translateY(-14px); } }
+    /* grown-up screens: the only place with words */
+    .grown { position: fixed; inset: 0; background: rgba(58, 43, 69, .55); display: grid; place-items: center; z-index: 10; font: 16px/1.4 ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif; color: #4A3A5C; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+    .grown .card { position: relative; background: #FFF6E5; border-radius: 22px; padding: 18px 22px; width: min(92vw, 380px); max-height: 92vh; overflow: auto; box-shadow: 0 8px 30px rgba(0,0,0,.2); display: flex; flex-direction: column; gap: 8px; }
+    .grown h2 { margin: 0; font-size: 20px; text-align: center; }
+    .grown p { margin: 0; text-align: center; }
+    .grown .muted { color: #7A6E84; font-size: 13px; }
+    .grown .words { color: #E8336D; font-weight: 700; font-size: 18px; }
+    .grown .boxes { display: flex; gap: 8px; justify-content: center; }
+    .grown .boxes span { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 2px solid #B79AFF; display: grid; place-items: center; font-weight: 700; }
+    .grown .pad { display: grid; grid-template-columns: repeat(3, 52px); gap: 8px; justify-content: center; }
+    .grown button { font: inherit; font-weight: 700; color: inherit; background: #fff; border: 2px solid #B79AFF; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+    .grown .pad button { height: 44px; padding: 0; }
+    .grown button[aria-pressed="true"] { background: #B79AFF; color: #fff; }
+    .grown .x { position: absolute; top: 10px; right: 12px; border: none; background: none; font-size: 22px; padding: 2px 8px; }
+    .grown .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .grown .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="loading"><div></div></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
